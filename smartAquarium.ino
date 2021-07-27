@@ -237,6 +237,8 @@ void AutoMode(){ // 자동모드
     else digitalWrite(LED,LOW); 
     
     // 스텝모터 제어
+    if(stepinterval_out_status == 0) stepinterval_out_status = 1; // 자동모드에서 스텝모터 작동 주기는 최소 1시간(오류 방지)
+    
     Feed_interval = stepinterval_out_status * ONEHOUR; // length시간단위, ms단위로 변환
     if((millis() - StartTime_feed) > Feed_interval){ // 설정한 급여 주기 지나면
       myStepper.step(stepsPerRevolution); // 시계 반대 방향으로 회전
